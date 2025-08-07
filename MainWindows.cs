@@ -110,17 +110,18 @@ namespace frp_desktop
                 AntdUI.Message.warn(this,"请先添加代理");
                 return;
             }
-            string folder = Path.Combine(Environment.CurrentDirectory, "frp");
-            string serverIp = input_server_ip.Text;
-            int serverPort = int.Parse(input_server_port.Text);
-            string token = input_token.Text;
-            string interval = inputNumber_interval.Text;
-            string timeout = inputNumber_timeout.Text;
-            FrpcYmlGenerator.GenerateYml(folder, serverIp, serverPort, "token", token, interval, timeout, proxies);
 
-            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "frp", "frpc.yml");
+
             if (!isConnect)
             {
+                string folder = Path.Combine(Environment.CurrentDirectory, "frp");
+                string serverIp = input_server_ip.Text;
+                int serverPort = int.Parse(input_server_port.Text);
+                string token = input_token.Text;
+                string interval = inputNumber_interval.Text;
+                string timeout = inputNumber_timeout.Text;
+                FrpcYmlGenerator.GenerateYml(folder, serverIp, serverPort, "token", token, interval, timeout, proxies);
+                string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "frp", "frpc.yml");
                 bool started = FrpcManager.StartFrpc(configPath);
                 if (started)
                 {
