@@ -184,7 +184,6 @@
             this.tabs.Pages.Add(this.tabPage_config);
             this.tabs.Pages.Add(this.tabPage_proxy);
             this.tabs.Pages.Add(this.tabPage_log);
-            this.tabs.SelectedIndex = 3;
             this.tabs.Size = new System.Drawing.Size(863, 482);
             this.tabs.Style = styleLine1;
             this.tabs.TabIndex = 2;
@@ -205,7 +204,7 @@
             this.tabPage_connect.Controls.Add(this.panel1);
             this.tabPage_connect.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabPage_connect.Icon = ((System.Drawing.Image)(resources.GetObject("tabPage_connect.Icon")));
-            this.tabPage_connect.Location = new System.Drawing.Point(-712, -459);
+            this.tabPage_connect.Location = new System.Drawing.Point(148, 20);
             this.tabPage_connect.Name = "tabPage_connect";
             this.tabPage_connect.Size = new System.Drawing.Size(712, 459);
             this.tabPage_connect.TabIndex = 0;
@@ -781,7 +780,7 @@
             // 
             this.tabPage_log.Controls.Add(this.panel4);
             this.tabPage_log.Icon = ((System.Drawing.Image)(resources.GetObject("tabPage_log.Icon")));
-            this.tabPage_log.Location = new System.Drawing.Point(148, 20);
+            this.tabPage_log.Location = new System.Drawing.Point(-712, -459);
             this.tabPage_log.Name = "tabPage_log";
             this.tabPage_log.Size = new System.Drawing.Size(712, 459);
             this.tabPage_log.TabIndex = 2;
