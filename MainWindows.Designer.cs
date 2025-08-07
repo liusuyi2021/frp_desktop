@@ -61,6 +61,13 @@
             this.tabPage_config = new AntdUI.TabPage();
             this.panel2 = new AntdUI.Panel();
             this.stackPanel1 = new AntdUI.StackPanel();
+            this.flowPanel11 = new AntdUI.FlowPanel();
+            this.button_save_server = new AntdUI.Button();
+            this.label10 = new AntdUI.Label();
+            this.flowPanel10 = new AntdUI.FlowPanel();
+            this.flowPanel9 = new AntdUI.FlowPanel();
+            this.flowPanel8 = new AntdUI.FlowPanel();
+            this.flowPanel7 = new AntdUI.FlowPanel();
             this.flowPanel5 = new AntdUI.FlowPanel();
             this.inputNumber_timeout = new AntdUI.InputNumber();
             this.label19 = new AntdUI.Label();
@@ -88,13 +95,7 @@
             this.label27 = new AntdUI.Label();
             this.tabPage_log = new AntdUI.TabPage();
             this.input_log = new AntdUI.Input();
-            this.flowPanel7 = new AntdUI.FlowPanel();
-            this.flowPanel8 = new AntdUI.FlowPanel();
-            this.flowPanel9 = new AntdUI.FlowPanel();
-            this.flowPanel10 = new AntdUI.FlowPanel();
-            this.flowPanel11 = new AntdUI.FlowPanel();
-            this.label10 = new AntdUI.Label();
-            this.button_save_server = new AntdUI.Button();
+            this.panel4 = new AntdUI.Panel();
             this.titlebar.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabPage_connect.SuspendLayout();
@@ -103,6 +104,7 @@
             this.tabPage_config.SuspendLayout();
             this.panel2.SuspendLayout();
             this.stackPanel1.SuspendLayout();
+            this.flowPanel11.SuspendLayout();
             this.flowPanel5.SuspendLayout();
             this.flowPanel4.SuspendLayout();
             this.flowPanel2.SuspendLayout();
@@ -113,7 +115,7 @@
             this.flowPanel3.SuspendLayout();
             this.flowPanel6.SuspendLayout();
             this.tabPage_log.SuspendLayout();
-            this.flowPanel11.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // titlebar
@@ -182,7 +184,7 @@
             this.tabs.Pages.Add(this.tabPage_config);
             this.tabs.Pages.Add(this.tabPage_proxy);
             this.tabs.Pages.Add(this.tabPage_log);
-            this.tabs.SelectedIndex = 1;
+            this.tabs.SelectedIndex = 3;
             this.tabs.Size = new System.Drawing.Size(863, 482);
             this.tabs.Style = styleLine1;
             this.tabs.TabIndex = 2;
@@ -205,7 +207,6 @@
             this.tabPage_connect.Icon = ((System.Drawing.Image)(resources.GetObject("tabPage_connect.Icon")));
             this.tabPage_connect.Location = new System.Drawing.Point(-712, -459);
             this.tabPage_connect.Name = "tabPage_connect";
-            this.tabPage_connect.Padding = new System.Windows.Forms.Padding(10);
             this.tabPage_connect.Size = new System.Drawing.Size(712, 459);
             this.tabPage_connect.TabIndex = 0;
             this.tabPage_connect.Text = "连接";
@@ -214,9 +215,9 @@
             // 
             this.panel1.Controls.Add(this.gridPanel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(10, 10);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(692, 439);
+            this.panel1.Size = new System.Drawing.Size(712, 459);
             this.panel1.TabIndex = 1;
             this.panel1.Text = "panel1";
             // 
@@ -245,14 +246,14 @@
             this.gridPanel.Location = new System.Drawing.Point(12, 12);
             this.gridPanel.Name = "gridPanel";
             this.gridPanel.Padding = new System.Windows.Forms.Padding(60);
-            this.gridPanel.Size = new System.Drawing.Size(665, 409);
+            this.gridPanel.Size = new System.Drawing.Size(691, 436);
             this.gridPanel.Span = "25% 50%  25%;25% 50%  25%;25% 50% 25%;25% 50%  25%;25% 50%  25%;";
             this.gridPanel.TabIndex = 2;
             this.gridPanel.Text = "gridPanel1";
             // 
             // label25
             // 
-            this.label25.Location = new System.Drawing.Point(545, 60);
+            this.label25.Location = new System.Drawing.Point(571, 60);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(130, 51);
             this.label25.TabIndex = 29;
@@ -260,7 +261,7 @@
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(545, 60);
+            this.label24.Location = new System.Drawing.Point(571, 60);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(130, 51);
             this.label24.TabIndex = 28;
@@ -268,7 +269,7 @@
             // 
             // label23
             // 
-            this.label23.Location = new System.Drawing.Point(545, 60);
+            this.label23.Location = new System.Drawing.Point(571, 60);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(130, 51);
             this.label23.TabIndex = 27;
@@ -276,7 +277,7 @@
             // 
             // label22
             // 
-            this.label22.Location = new System.Drawing.Point(545, 60);
+            this.label22.Location = new System.Drawing.Point(571, 60);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(130, 51);
             this.label22.TabIndex = 26;
@@ -284,7 +285,7 @@
             // 
             // label16
             // 
-            this.label16.Location = new System.Drawing.Point(545, 60);
+            this.label16.Location = new System.Drawing.Point(571, 60);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(130, 51);
             this.label16.TabIndex = 25;
@@ -292,95 +293,95 @@
             // 
             // label14
             // 
-            this.label14.Location = new System.Drawing.Point(471, 291);
+            this.label14.Location = new System.Drawing.Point(492, 315);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(130, 51);
+            this.label14.Size = new System.Drawing.Size(137, 57);
             this.label14.TabIndex = 24;
             this.label14.Text = "";
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(199, 291);
+            this.label13.Location = new System.Drawing.Point(206, 315);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(266, 51);
+            this.label13.Size = new System.Drawing.Size(280, 57);
             this.label13.TabIndex = 23;
             this.label13.Text = "";
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(63, 291);
+            this.label12.Location = new System.Drawing.Point(63, 315);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(130, 51);
+            this.label12.Size = new System.Drawing.Size(137, 57);
             this.label12.TabIndex = 22;
             this.label12.Text = "";
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(471, 234);
+            this.label11.Location = new System.Drawing.Point(492, 252);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(130, 51);
+            this.label11.Size = new System.Drawing.Size(137, 57);
             this.label11.TabIndex = 21;
             this.label11.Text = "";
             // 
             // labelTime
             // 
-            this.labelTime.Location = new System.Drawing.Point(199, 234);
+            this.labelTime.Location = new System.Drawing.Point(206, 252);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(266, 51);
+            this.labelTime.Size = new System.Drawing.Size(280, 57);
             this.labelTime.TabIndex = 20;
             this.labelTime.Text = "";
             this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(63, 234);
+            this.label9.Location = new System.Drawing.Point(63, 252);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(130, 51);
+            this.label9.Size = new System.Drawing.Size(137, 57);
             this.label9.TabIndex = 19;
             this.label9.Text = "";
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(471, 177);
+            this.label8.Location = new System.Drawing.Point(492, 189);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(130, 51);
+            this.label8.Size = new System.Drawing.Size(137, 57);
             this.label8.TabIndex = 18;
             this.label8.Text = "";
             // 
             // button_connect
             // 
-            this.button_connect.Location = new System.Drawing.Point(199, 177);
+            this.button_connect.Location = new System.Drawing.Point(206, 189);
             this.button_connect.Name = "button_connect";
-            this.button_connect.Size = new System.Drawing.Size(266, 51);
+            this.button_connect.Size = new System.Drawing.Size(280, 57);
             this.button_connect.TabIndex = 17;
             this.button_connect.Text = "连    接";
             this.button_connect.Type = AntdUI.TTypeMini.Success;
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(63, 177);
+            this.label7.Location = new System.Drawing.Point(63, 189);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(130, 51);
+            this.label7.Size = new System.Drawing.Size(137, 57);
             this.label7.TabIndex = 15;
             this.label7.Text = "";
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(471, 120);
+            this.label6.Location = new System.Drawing.Point(492, 126);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(130, 51);
+            this.label6.Size = new System.Drawing.Size(137, 57);
             this.label6.TabIndex = 14;
             this.label6.Text = "";
             // 
             // label_status
             // 
             this.label_status.Font = new System.Drawing.Font("Microsoft YaHei UI", 14F, System.Drawing.FontStyle.Bold);
-            this.label_status.Location = new System.Drawing.Point(199, 120);
+            this.label_status.Location = new System.Drawing.Point(206, 126);
             this.label_status.Name = "label_status";
             this.label_status.Prefix = "";
             this.label_status.PrefixColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(46)))), ((int)(((byte)(13)))));
             this.label_status.PrefixSvg = "CloseCircleFilled";
-            this.label_status.Size = new System.Drawing.Size(266, 51);
+            this.label_status.Size = new System.Drawing.Size(280, 57);
             this.label_status.Suffix = "";
             this.label_status.SuffixColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(22)))), ((int)(((byte)(255)))));
             this.label_status.TabIndex = 13;
@@ -389,25 +390,25 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(63, 120);
+            this.label4.Location = new System.Drawing.Point(63, 126);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 51);
+            this.label4.Size = new System.Drawing.Size(137, 57);
             this.label4.TabIndex = 11;
             this.label4.Text = "";
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(471, 63);
+            this.label3.Location = new System.Drawing.Point(492, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(130, 51);
+            this.label3.Size = new System.Drawing.Size(137, 57);
             this.label3.TabIndex = 10;
             this.label3.Text = "";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(199, 63);
+            this.label2.Location = new System.Drawing.Point(206, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(266, 51);
+            this.label2.Size = new System.Drawing.Size(280, 57);
             this.label2.TabIndex = 9;
             this.label2.Text = "";
             // 
@@ -415,7 +416,7 @@
             // 
             this.label1.Location = new System.Drawing.Point(63, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 51);
+            this.label1.Size = new System.Drawing.Size(137, 57);
             this.label1.TabIndex = 8;
             this.label1.Text = "";
             // 
@@ -424,7 +425,7 @@
             this.tabPage_config.Controls.Add(this.panel2);
             this.tabPage_config.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabPage_config.Icon = ((System.Drawing.Image)(resources.GetObject("tabPage_config.Icon")));
-            this.tabPage_config.Location = new System.Drawing.Point(148, 20);
+            this.tabPage_config.Location = new System.Drawing.Point(-712, -459);
             this.tabPage_config.Name = "tabPage_config";
             this.tabPage_config.Size = new System.Drawing.Size(712, 459);
             this.tabPage_config.TabIndex = 1;
@@ -457,6 +458,65 @@
             this.stackPanel1.TabIndex = 0;
             this.stackPanel1.Text = "stackPanel1";
             this.stackPanel1.Vertical = true;
+            // 
+            // flowPanel11
+            // 
+            this.flowPanel11.Controls.Add(this.button_save_server);
+            this.flowPanel11.Controls.Add(this.label10);
+            this.flowPanel11.Location = new System.Drawing.Point(3, 357);
+            this.flowPanel11.Name = "flowPanel11";
+            this.flowPanel11.Size = new System.Drawing.Size(682, 40);
+            this.flowPanel11.TabIndex = 9;
+            this.flowPanel11.Text = "flowPanel11";
+            // 
+            // button_save_server
+            // 
+            this.button_save_server.Location = new System.Drawing.Point(508, 3);
+            this.button_save_server.Name = "button_save_server";
+            this.button_save_server.Size = new System.Drawing.Size(142, 40);
+            this.button_save_server.TabIndex = 13;
+            this.button_save_server.Text = "保存";
+            this.button_save_server.Type = AntdUI.TTypeMini.Primary;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(3, 3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(499, 40);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "";
+            // 
+            // flowPanel10
+            // 
+            this.flowPanel10.Location = new System.Drawing.Point(3, 311);
+            this.flowPanel10.Name = "flowPanel10";
+            this.flowPanel10.Size = new System.Drawing.Size(682, 40);
+            this.flowPanel10.TabIndex = 8;
+            this.flowPanel10.Text = "flowPanel10";
+            // 
+            // flowPanel9
+            // 
+            this.flowPanel9.Location = new System.Drawing.Point(3, 265);
+            this.flowPanel9.Name = "flowPanel9";
+            this.flowPanel9.Size = new System.Drawing.Size(682, 40);
+            this.flowPanel9.TabIndex = 7;
+            this.flowPanel9.Text = "flowPanel9";
+            // 
+            // flowPanel8
+            // 
+            this.flowPanel8.Location = new System.Drawing.Point(3, 219);
+            this.flowPanel8.Name = "flowPanel8";
+            this.flowPanel8.Size = new System.Drawing.Size(682, 40);
+            this.flowPanel8.TabIndex = 6;
+            this.flowPanel8.Text = "flowPanel8";
+            // 
+            // flowPanel7
+            // 
+            this.flowPanel7.Location = new System.Drawing.Point(3, 173);
+            this.flowPanel7.Name = "flowPanel7";
+            this.flowPanel7.Size = new System.Drawing.Size(682, 40);
+            this.flowPanel7.TabIndex = 5;
+            this.flowPanel7.Text = "flowPanel7";
             // 
             // flowPanel5
             // 
@@ -719,9 +779,9 @@
             // 
             // tabPage_log
             // 
-            this.tabPage_log.Controls.Add(this.input_log);
+            this.tabPage_log.Controls.Add(this.panel4);
             this.tabPage_log.Icon = ((System.Drawing.Image)(resources.GetObject("tabPage_log.Icon")));
-            this.tabPage_log.Location = new System.Drawing.Point(-712, -459);
+            this.tabPage_log.Location = new System.Drawing.Point(148, 20);
             this.tabPage_log.Name = "tabPage_log";
             this.tabPage_log.Size = new System.Drawing.Size(712, 459);
             this.tabPage_log.TabIndex = 2;
@@ -730,70 +790,21 @@
             // input_log
             // 
             this.input_log.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F);
-            this.input_log.Location = new System.Drawing.Point(18, 0);
+            this.input_log.Location = new System.Drawing.Point(13, 13);
             this.input_log.Multiline = true;
             this.input_log.Name = "input_log";
-            this.input_log.Size = new System.Drawing.Size(685, 450);
+            this.input_log.Size = new System.Drawing.Size(690, 435);
             this.input_log.TabIndex = 0;
             // 
-            // flowPanel7
+            // panel4
             // 
-            this.flowPanel7.Location = new System.Drawing.Point(3, 173);
-            this.flowPanel7.Name = "flowPanel7";
-            this.flowPanel7.Size = new System.Drawing.Size(682, 40);
-            this.flowPanel7.TabIndex = 5;
-            this.flowPanel7.Text = "flowPanel7";
-            // 
-            // flowPanel8
-            // 
-            this.flowPanel8.Location = new System.Drawing.Point(3, 219);
-            this.flowPanel8.Name = "flowPanel8";
-            this.flowPanel8.Size = new System.Drawing.Size(682, 40);
-            this.flowPanel8.TabIndex = 6;
-            this.flowPanel8.Text = "flowPanel8";
-            // 
-            // flowPanel9
-            // 
-            this.flowPanel9.Location = new System.Drawing.Point(3, 265);
-            this.flowPanel9.Name = "flowPanel9";
-            this.flowPanel9.Size = new System.Drawing.Size(682, 40);
-            this.flowPanel9.TabIndex = 7;
-            this.flowPanel9.Text = "flowPanel9";
-            // 
-            // flowPanel10
-            // 
-            this.flowPanel10.Location = new System.Drawing.Point(3, 311);
-            this.flowPanel10.Name = "flowPanel10";
-            this.flowPanel10.Size = new System.Drawing.Size(682, 40);
-            this.flowPanel10.TabIndex = 8;
-            this.flowPanel10.Text = "flowPanel10";
-            // 
-            // flowPanel11
-            // 
-            this.flowPanel11.Controls.Add(this.button_save_server);
-            this.flowPanel11.Controls.Add(this.label10);
-            this.flowPanel11.Location = new System.Drawing.Point(3, 357);
-            this.flowPanel11.Name = "flowPanel11";
-            this.flowPanel11.Size = new System.Drawing.Size(682, 40);
-            this.flowPanel11.TabIndex = 9;
-            this.flowPanel11.Text = "flowPanel11";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(3, 3);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(499, 40);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "";
-            // 
-            // button_save_server
-            // 
-            this.button_save_server.Location = new System.Drawing.Point(508, 3);
-            this.button_save_server.Name = "button_save_server";
-            this.button_save_server.Size = new System.Drawing.Size(142, 40);
-            this.button_save_server.TabIndex = 13;
-            this.button_save_server.Text = "保存";
-            this.button_save_server.Type = AntdUI.TTypeMini.Primary;
+            this.panel4.Controls.Add(this.input_log);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(712, 459);
+            this.panel4.TabIndex = 2;
+            this.panel4.Text = "panel4";
             // 
             // MainWindows
             // 
@@ -816,6 +827,7 @@
             this.tabPage_config.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.stackPanel1.ResumeLayout(false);
+            this.flowPanel11.ResumeLayout(false);
             this.flowPanel5.ResumeLayout(false);
             this.flowPanel4.ResumeLayout(false);
             this.flowPanel2.ResumeLayout(false);
@@ -826,7 +838,7 @@
             this.flowPanel3.ResumeLayout(false);
             this.flowPanel6.ResumeLayout(false);
             this.tabPage_log.ResumeLayout(false);
-            this.flowPanel11.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -897,6 +909,7 @@
         private AntdUI.FlowPanel flowPanel7;
         private AntdUI.Button button_save_server;
         private AntdUI.Label label10;
+        private AntdUI.Panel panel4;
     }
 }
 
