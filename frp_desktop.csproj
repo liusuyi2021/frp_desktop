@@ -42,12 +42,21 @@
     <Reference Include="AntdUI, Version=2.0.5.0, Culture=neutral, PublicKeyToken=0e24e5118ea3d6af, processorArchitecture=MSIL">
       <HintPath>packages\AntdUI.2.0.5\lib\net40\AntdUI.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -59,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Domain\FrpProxy.cs" />
     <Compile Include="Domain\FrpServerConfig.cs" />
+    <Compile Include="Domain\GithubRelease.cs" />
     <Compile Include="Service\FrpcManager.cs" />
     <Compile Include="MainWindows.cs">
       <SubType>Form</SubType>
@@ -69,7 +79,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\FrpcYmlGenerator.cs" />
+    <Compile Include="Service\FrpDownload.cs" />
     <Compile Include="Service\ProxyData.cs" />
+    <Compile Include="Utils\FileSizeFormatter.cs" />
     <Compile Include="Utils\ThemeHelper.cs" />
     <Compile Include="Views\SubView\ProxyEdit.cs">
       <SubType>UserControl</SubType>
@@ -130,6 +142,7 @@
     </Content>
     <Content Include="icon.ico" />
     <Content Include="Resources\ico\app.ico" />
+    <Content Include="Resources\ico\Download.png" />
     <Content Include="Resources\ico\icon.ico" />
     <Content Include="Resources\ico\icon.png" />
     <Content Include="Resources\ico\ic_launcher_android.png" />

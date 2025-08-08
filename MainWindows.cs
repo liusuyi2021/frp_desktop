@@ -1,6 +1,7 @@
 ﻿using AntdUI;
 using frp_desktop.Domain;
 using frp_desktop.Service;
+using frp_desktop.Utils;
 using frp_desktop.Views.SubView;
 using KMZDemo;
 using Microsoft.Win32;
@@ -8,10 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net;
-using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Button = AntdUI.Button;
+using Label = AntdUI.Label;
+using Message = AntdUI.Message;
+using Timer = System.Windows.Forms.Timer;
 
 namespace frp_desktop
 {
@@ -19,6 +23,9 @@ namespace frp_desktop
     {
         private bool isLight = false;
         private bool isConnect = false;
+        private FrpDownload frpDownload;
+        private List<string> versions;
+        private bool frpTabLoaded = false; // 标记是否已加载过
         public MainWindows()
         {
             InitializeComponent();
@@ -36,16 +43,18 @@ namespace frp_desktop
             button_save_server.Click += Button_Save_Server_Click;
             button_proxy_add.Click += Button_Proxy_Add_Click;
             button_connect.Click += Button_Connect_Click;
+            button_refresh.Click+=Button_Refresh_Click;
             FrpcManager.OnOutput += OnFrpcOutput;
             //表格单元格按钮点击事件
             table_proxy.CellButtonClick += OnTableProxyCellButtonClick;
-
+            tabs.SelectedIndexChanged += tabs_SelectedIndexChanged;
             //监听系统深浅色变化
             SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
 
             // 订阅关闭事件
             this.FormClosing += MainWindows_FormClosing;
         }
+
 
         private void AppendLog(string text)
         {
@@ -74,7 +83,7 @@ namespace frp_desktop
 
             LoadProxyListData();
             #endregion
-            FrpServerConfig frpServerConfig= ProxyData.LoadServerConfig();
+            FrpServerConfig frpServerConfig = ProxyData.LoadServerConfig();
             if (frpServerConfig != null)
             {
                 input_server_ip.Text = frpServerConfig.ServerAddr;
@@ -82,7 +91,143 @@ namespace frp_desktop
                 input_token.Text = frpServerConfig.AuthToken;
                 inputNumber_interval.Text = frpServerConfig.HeartbeatInterval.ToString();
                 inputNumber_timeout.Text = frpServerConfig.HeartbeatTimeout.ToString();
+                select_frp_version.Text = frpServerConfig.version;
             }
+            frpDownload = new FrpDownload();
+             versions = frpDownload.GetDownloadedFrpVersions();
+            select_frp_version.Items.Clear();
+            foreach (var v in versions)
+            {
+                select_frp_version.Items.Add(v);
+            }
+        }
+
+        private void tabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 假设目标 Tab 页的索引是 1，或者用 Name 比较
+            if (tabs.SelectedIndex == 4 && !frpTabLoaded)
+            {
+                frpTabLoaded = true; // 标记已加载，避免重复加载
+                LoadFrpVersionsAsync();
+            }
+            if (tabs.SelectedIndex == 2 && !frpTabLoaded)
+            {
+                frpTabLoaded = true; // 标记已加载，避免重复加载
+                versions = frpDownload.GetDownloadedFrpVersions();
+            }
+        }
+
+        // 异步加载 FRP 版本信息
+        private void LoadFrpVersionsAsync()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                var versionList = new List<FrpVersionInfo>();
+           
+                this.Invoke(new Action(() =>
+                {     
+                    AntdUI.Spin.open(panel_download, AntdUI.Localization.Get("Loading", "正在加载中..."), config =>
+                    {
+                        versionList = frpDownload.GetReleasesWithCache();
+                    }, () =>
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            collapse_download.Size = new Size(665, versionList.Count * 50 + 30); // 设置高度为每个版本信息的高度之和
+                            collapse_download.Items.Clear();
+                            foreach (var info in versionList)
+                            {
+                                var item = new CollapseItem();
+                                item.Text = info.Version;
+                                item.Height = 70;
+
+                                var lblDate = new Label
+                                {
+                                    Text = "发布时间: " + info.PublishDate.ToString("yyyy-MM-dd"),
+                                    Location = new Point(10, 5),
+                                    AutoSize = true
+                                };
+
+                                var lblFileName = new Label
+                                {
+                                    Text = "文件名称: " + info.FileName,
+                                    Location = new Point(10, 25),
+                                    AutoSize = true
+                                };
+
+                                var lblDownloadCount = new Label
+                                {
+                                    Text = "下载数量: " + info.DownloadCountl,
+                                    Location = new Point(10, 45),
+                                    AutoSize = true
+                                };
+
+                                string size = FileSizeFormatter.FormatSize(info.Size);
+                                string btnText = frpDownload.IsVersionDownloaded(info.FileName) ? "重新下载" : "下载";
+                                var btnDownload = new Button
+                                {
+                                   Name="button_download",
+                                   IconSvg= "DownloadOutlined",
+                                    Text = btnText + "\r\n" + size,
+                                    Type=TTypeMini.Primary,
+                                    Dock=DockStyle.Right,
+                                    Size = new Size(133, 45),
+                                    Location = new Point(10, 45)
+                                };
+
+                                btnDownload.Click += (s, eBtn) =>
+                                {
+                                    btnDownload.Loading = true;
+                                    Task.Factory.StartNew(() =>
+                                    {
+                                        try
+                                        {
+                                            string baseDir = AppDomain.CurrentDomain.BaseDirectory; // 当前程序目录，末尾带斜杠
+                                            string saveFolder = Path.Combine(baseDir, "frp", "download");
+
+                                            // 确保目录存在
+                                            if (!Directory.Exists(saveFolder))
+                                            {
+                                                Directory.CreateDirectory(saveFolder);
+                                            }
+
+                                            string savePath = Path.Combine(saveFolder, info.FileName);
+                                            frpDownload.DownloadFrp(info.DownloadUrl, savePath);
+                                            this.Invoke(new Action(() =>
+                                            {
+                                                AntdUI.Message.info(this,($"下载完成 {info.Version}"));
+                                            }));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            this.Invoke(new Action(() =>
+                                            {
+                                                AntdUI.Message.error(this,"下载失败: " + ex.Message);
+                                            }));
+                                        }
+                                        finally
+                                        {
+                                            this.Invoke(new Action(() => {
+                                                btnDownload.Loading = false; 
+                                                btnDownload.Text = frpDownload.IsVersionDownloaded(info.FileName) ? "重新下载" : "下载";
+                                            }
+                                            ));
+                                        }
+                                    });
+                                };
+
+                                item.Controls.Add(lblDate);
+                                item.Controls.Add(lblFileName);
+                                item.Controls.Add(lblDownloadCount);
+                                item.Controls.Add(btnDownload);
+
+                                collapse_download.Items.Add(item);
+                            }
+                        }));
+                    });
+             
+                }));
+            });
         }
 
         //加载代理数据
@@ -104,10 +249,10 @@ namespace frp_desktop
         private void Button_Connect_Click(object sender, EventArgs e)
         {
 
-            var proxies= LoadProxyListData();
+            var proxies = LoadProxyListData();
             if (proxies.Count == 0)
             {
-                AntdUI.Message.warn(this,"请先添加代理");
+                AntdUI.Message.warn(this, "请先添加代理");
                 return;
             }
 
@@ -163,7 +308,7 @@ namespace frp_desktop
                     OnOk = config =>
                     {
                         //添加数据
-                        bool added = ProxyData.AddData(form.ProxyData,out string errMsg);
+                        bool added = ProxyData.AddData(form.ProxyData, out string errMsg);
                         if (!added)
                         {
                             AntdUI.Message.error(this, errMsg);
@@ -186,8 +331,20 @@ namespace frp_desktop
             frpServerConfig.AuthToken = input_token.Text;
             frpServerConfig.HeartbeatInterval = int.Parse(inputNumber_interval.Text);
             frpServerConfig.HeartbeatTimeout = int.Parse(inputNumber_timeout.Text);
+            frpServerConfig.version = select_frp_version.Text;
             ProxyData.SaveServerConfig(frpServerConfig);
+
+            //解压选择的版本
+            frpDownload.ExtractFrpc(frpServerConfig.version);
+            Message.success(this,"保存成功!");
         }
+
+        // frp版本列表刷新
+        private void Button_Refresh_Click(object sender, EventArgs e)
+        {
+            LoadFrpVersionsAsync();
+        }
+
         //日志输出
         private void OnFrpcOutput(string text)
         {
@@ -203,16 +360,16 @@ namespace frp_desktop
         }
 
         //表格代理删除事件
-        private void OnTableProxyCellButtonClick(object sender,TableButtonEventArgs e)
+        private void OnTableProxyCellButtonClick(object sender, TableButtonEventArgs e)
         {
             if (e.Record is FrpProxy proxy && proxy.Btns[0].Id == "delete")
             {
                 var result = AntdUI.Modal.open(new AntdUI.Modal.Config(this, "确认删除", new AntdUI.Modal.TextLine[]
                 {
-            new AntdUI.Modal.TextLine($"名称: {proxy.Name}", AntdUI.Style.Db.Primary),
-            new AntdUI.Modal.TextLine($"本地IP: {proxy.LocalIp}", 6, AntdUI.Style.Db.TextSecondary),
-            new AntdUI.Modal.TextLine($"本地端口: {proxy.LocalPort}", 6, AntdUI.Style.Db.TextSecondary),
-            new AntdUI.Modal.TextLine($"远程端口: {proxy.RemotePort}", 6, AntdUI.Style.Db.TextSecondary)
+                    new AntdUI.Modal.TextLine($"名称: {proxy.Name}", AntdUI.Style.Db.Primary),
+                    new AntdUI.Modal.TextLine($"本地IP: {proxy.LocalIp}", 6, AntdUI.Style.Db.TextSecondary),
+                    new AntdUI.Modal.TextLine($"本地端口: {proxy.LocalPort}", 6, AntdUI.Style.Db.TextSecondary),
+                    new AntdUI.Modal.TextLine($"远程端口: {proxy.RemotePort}", 6, AntdUI.Style.Db.TextSecondary)
                 }, AntdUI.TType.Error)
                 {
                     CancelText = null,
@@ -273,8 +430,7 @@ namespace frp_desktop
             }
         }
 
-
-        private System.Windows.Forms.Timer runTimer;
+        private Timer runTimer;
         private DateTime startTime;
 
         private void StartRunTimer()
