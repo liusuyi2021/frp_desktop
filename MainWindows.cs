@@ -233,15 +233,7 @@ namespace frp_desktop
         //加载代理数据
         private List<FrpProxy> LoadProxyListData()
         {
-            var proxies = ProxyData.LoadData();
-            foreach (var p in proxies)
-            {
-                p.Btns = new AntdUI.CellLink[]
-                {
-                     new AntdUI.CellButton("delete", "删除", AntdUI.TTypeMini.Error) { Ghost = true, BorderWidth = 1 }
-                };
-            }
-            table_proxy.DataSource = proxies;
+            table_proxy.DataSource = ProxyData.LoadData();
             return proxies;
         }
 

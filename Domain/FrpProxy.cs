@@ -1,4 +1,6 @@
-﻿namespace frp_desktop.Domain
+﻿using Newtonsoft.Json;
+
+namespace frp_desktop.Domain
 {
     public class FrpProxy : AntdUI.NotifyProperty
     {
@@ -18,7 +20,15 @@
         public string LocalIp { get; set; } = "127.0.0.1";
         public int LocalPort { get; set; }
         public int RemotePort { get; set; }
-        public AntdUI.CellLink[] Btns { get; set; }
+        [JsonIgnore]
+        public AntdUI.CellLink[] Btns { get; set; } = new AntdUI.CellLink[]
+        {
+            new AntdUI.CellButton("delete", "删除", AntdUI.TTypeMini.Error)
+            {
+                Ghost = true,
+                BorderWidth = 1
+            }
+        };
 
     }
 }
